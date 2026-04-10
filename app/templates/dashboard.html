@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}Dashboard{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1>¡Bienvenido, {{ current_user.nameUser }}!</h1>
+    <p>Este es tu panel de control.</p>
+    <p>Aquí puedes gestionar usuarios, perfiles, publicaciones y etiquetas.</p>
+</div>
+{% endblock %}

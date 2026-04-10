@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}{% if etiqueta %}Editar Etiqueta{% else %}Nueva Etiqueta{% endif %}{% endblock %}
+{% block content %}
+<form action="{% if etiqueta %}{{ url_for('etiqueta.editar_etiqueta', id=etiqueta.id) }}{% else %}{{ url_for('etiqueta.nueva_etiqueta') }}{% endif %}" method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{% if etiqueta %}{{ etiqueta.nombre }}{% endif %}" required class="form-control">
+        <div class="invalid-feedback">
+            Por favor, ingrese un nombre.
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="slug" class="form-label">Slug:</label>
+        <input type="text" id="slug" name="slug" value="{% if etiqueta %}{{ etiqueta.slug }}{% endif %}" required class="form-control">
+        <div class="invalid-feedback">
+            Por favor, ingrese un slug.
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">{% if etiqueta %}Actualizar{% else %}Crear{% endif %} Etiqueta</button>
+    <a href="{{ url_for('etiqueta.lista_etiquetas') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+{% endblock %}

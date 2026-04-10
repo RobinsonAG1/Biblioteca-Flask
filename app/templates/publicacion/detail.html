@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}Publicación: {{ publicacion.titulo }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <td>{{ publicacion.id }}</td>
+            </tr>
+            <tr>
+                <th>Título</th>
+                <td>{{ publicacion.titulo }}</td>
+            </tr>
+            <tr>
+                <th>Contenido</th>
+                <td>{{ publicacion.contenido }}</td>
+            </tr>
+            <tr>
+                <th>Usuario</th>
+                <td>{{ publicacion.user.nameUser }}</td>
+            </tr>
+            <tr>
+                <th>Etiquetas</th>
+                <td>
+                    {% if publicacion.etiquetas %}
+                        {% for etiqueta in publicacion.etiquetas %}
+                            <span class="badge bg-secondary me-1">{{ etiqueta.nombre }}</span>
+                        {% endfor %}
+                    {% else %}
+                        Sin etiquetas
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <div class="d-flex justify-content-between">
+            <a href="{{ url_for('publicacion.edit', id=publicacion.id) }}" class="btn btn-primary btn-sm mb-1">
+                <i class="bi bi-pencil-square"></i> Editar
+            </a>
+            <a href="{{ url_for('publicacion.delete', id=publicacion.id) }}" class="btn btn-danger btn-sm mb-1">
+                <i class="bi bi-trash"></i> Eliminar
+            </a>
+        </div>
+    </div>
+{% endblock %}

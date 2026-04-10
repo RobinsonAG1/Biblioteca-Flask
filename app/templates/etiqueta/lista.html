@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}Lista de Etiquetas{% endblock %}
+{% block content %}
+
+    <div class="text-start">
+        <a href="{{ url_for('etiqueta.nueva_etiqueta') }}" class="btn btn-primary btn-sm mb-1">
+            <i class="bi bi-plus-circle"></i> Nueva Etiqueta
+        </a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Slug</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for etiqueta in etiquetas %}
+                <tr>
+                    <td>{{ etiqueta.id }}</td>
+                    <td>{{ etiqueta.nombre }}</td>
+                    <td>{{ etiqueta.slug }}</td>
+                    <td>
+                        <a href="{{ url_for('etiqueta.ver_etiqueta', id=etiqueta.id) }}" class="btn btn-success btn-sm mb-1">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{{ url_for('etiqueta.editar_etiqueta', id=etiqueta.id) }}" class="btn btn-primary btn-sm mb-1">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

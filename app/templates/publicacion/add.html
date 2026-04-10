@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}Agregar Publicación{% endblock %}
+{% block content %}
+<form action="{{ url_for('publicacion.add') }}" method="post" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label for="titulo" class="form-label">Título:</label>
+        <input type="text" id="titulo" name="titulo" required class="form-control">
+        <div class="invalid-feedback">
+            Por favor, ingrese un título.
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="contenido" class="form-label">Contenido:</label>
+        <textarea id="contenido" name="contenido" required class="form-control" rows="5"></textarea>
+        <div class="invalid-feedback">
+            Por favor, ingrese el contenido.
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="user_id" class="form-label">Usuario:</label>
+        <select id="user_id" name="user_id" required class="form-control">
+            <option value="">Seleccione un usuario</option>
+            {% for user in users %}
+                <option value="{{ user.idUser }}">{{ user.nameUser }}</option>
+            {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+            Por favor, seleccione un usuario.
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="etiquetas" class="form-label">Etiquetas:</label>
+        <select id="etiquetas" name="etiquetas" multiple class="form-control">
+            {% for etiqueta in etiquetas %}
+                <option value="{{ etiqueta.id }}">{{ etiqueta.nombre }}</option>
+            {% endfor %}
+        </select>
+        <small class="form-text text-muted">Mantén presionado Ctrl (o Cmd en Mac) para seleccionar múltiples etiquetas.</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Agregar Publicación</button>
+</form>
+
+{% endblock %}

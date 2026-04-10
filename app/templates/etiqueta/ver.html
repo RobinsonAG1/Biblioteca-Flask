@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}Etiqueta: {{ etiqueta.nombre }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2>Detalles de la Etiqueta</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <td>{{ etiqueta.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ etiqueta.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ etiqueta.slug }}</td>
+            </tr>
+        </table>
+
+        <h3>Publicaciones con esta etiqueta</h3>
+        {% if etiqueta.publicaciones %}
+            <div class="row">
+                {% for publicacion in etiqueta.publicaciones %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ publicacion.titulo }}</h5>
+                                <p class="card-text">{{ publicacion.contenido[:100] }}{% if publicacion.contenido|length > 100 %}...{% endif %}</p>
+                                <p class="card-text"><small class="text-muted">Por: {{ publicacion.user.nameUser }}</small></p>
+                                <a href="{{ url_for('publicacion.detail', id=publicacion.id) }}" class="btn btn-primary">Ver Publicación</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No hay publicaciones con esta etiqueta.</p>
+        {% endif %}
+
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{{ url_for('etiqueta.editar_etiqueta', id=etiqueta.id) }}" class="btn btn-primary btn-sm mb-1">
+                <i class="bi bi-pencil-square"></i> Editar
+            </a>
+            <a href="{{ url_for('etiqueta.lista_etiquetas') }}" class="btn btn-secondary btn-sm mb-1">
+                <i class="bi bi-arrow-left"></i> Volver a la lista
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     passwordUser = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     perfil = db.relationship('Perfil', back_populates='user', uselist=False)
+    publicaciones = db.relationship('Publicacion', back_populates='user')
 
 
  

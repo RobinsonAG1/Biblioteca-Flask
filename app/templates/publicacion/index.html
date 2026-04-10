@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block titulo_pagina %}Lista de Publicaciones{% endblock %}
+{% block content %}
+
+    <div class="text-start">
+        <a href="{{ url_for('publicacion.add') }}" class="btn btn-primary btn-sm mb-1">
+            <i class="bi bi-plus-circle"></i> Agregar Publicación
+        </a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Contenido</th>
+                <th>Usuario</th>
+                <th>Etiquetas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for publicacion in data %}
+                <tr>
+                    <td>{{ publicacion.id }}</td>
+                    <td>{{ publicacion.titulo }}</td>
+                    <td>{{ publicacion.contenido[:50] }}{% if publicacion.contenido|length > 50 %}...{% endif %}</td>
+                    <td>{{ publicacion.user.nameUser }}</td>
+                    <td>
+                        {% if publicacion.etiquetas %}
+                            {% for etiqueta in publicacion.etiquetas %}
+                                <span class="badge bg-light text-dark me-1">{{ etiqueta.nombre }}</span>
+                            {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('publicacion.detail', id=publicacion.id) }}" class="btn btn-success btn-sm mb-1">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{{ url_for('publicacion.edit', id=publicacion.id) }}" class="btn btn-primary btn-sm mb-1">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="{{ url_for('publicacion.delete', id=publicacion.id) }}" class="btn btn-danger btn-sm mb-1">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

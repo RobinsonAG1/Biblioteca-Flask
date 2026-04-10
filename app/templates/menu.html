@@ -18,22 +18,6 @@
                           <li><a class="dropdown-item" href="{{ url_for('user.add') }}">Agregar</a></li>
                       </ul>
                   </li>
-                  <!-- Autores -->
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarAutores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Autores
-                      </a>
-                  </li>
-                  <!-- Salas -->
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarSalas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Salas
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarSalas">
-                          <li><a class="dropdown-item" href="{{ url_for('room.index') }}">Listado</a></li>
-                          <li><a class="dropdown-item" href="{{ url_for('room.add') }}">Agregar</a></li>
-                      </ul>
-                  </li>
                   <!-- Perfiles -->
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarPerfiles" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,6 +28,26 @@
                           <li><a class="dropdown-item" href="{{ url_for('perfil.mi_perfil') }}">Mi Perfil</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="{{ url_for('perfil.add') }}">Crear Perfil</a></li>
+                      </ul>
+                  </li>
+                  <!-- Publicaciones -->
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarPublicaciones" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Publicaciones
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarPublicaciones">
+                          <li><a class="dropdown-item" href="{{ url_for('publicacion.index') }}">Listado</a></li>
+                          <li><a class="dropdown-item" href="{{ url_for('publicacion.add') }}">Agregar</a></li>
+                      </ul>
+                  </li>
+                  <!-- Etiquetas -->
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarEtiquetas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Etiquetas
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarEtiquetas">
+                          <li><a class="dropdown-item" href="{{ url_for('etiqueta.lista_etiquetas') }}">Listado</a></li>
+                          <li><a class="dropdown-item" href="{{ url_for('etiqueta.nueva_etiqueta') }}">Nueva</a></li>
                       </ul>
                   </li>
 

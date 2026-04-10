@@ -24,7 +24,7 @@ def login():
 @bp.route('/dashboard')
 @login_required
 def dashboard():    
-    return f'Welcome, {current_user.nameUser}! This is your dashboard.'
+    return render_template('dashboard.html')
 
 @bp.route('/logout')
 @login_required

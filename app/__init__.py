@@ -21,21 +21,22 @@ def create_app():
 
     # Import all models so they are registered with SQLAlchemy
     from .models.users import User
-    from .models.authors import Author
-    from .models.rooms import Room
     from .models.perfil import Perfil
+    from .models.publicacion import Publicacion
+    from .models.etiqueta import Etiqueta
 
     # Register blueprints
     from app.routes import (
-        auth, author_routes, users_route, 
-        room_routes, users_route_async, perfil_route
+        auth, users_route, 
+        users_route_async, perfil_route, publicacion_route
     )
+    from app.routes.etiqueta_routes import etiqueta_bp
     app.register_blueprint(auth.bp)
-    app.register_blueprint(author_routes.bp)
     app.register_blueprint(users_route.bp)
-    app.register_blueprint(room_routes.bp)
     app.register_blueprint(users_route_async.bp)
     app.register_blueprint(perfil_route.bp)
+    app.register_blueprint(publicacion_route.bp)
+    app.register_blueprint(etiqueta_bp)
 
     @app.errorhandler(Exception)
     def handle_error(e):
