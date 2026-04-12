@@ -21,7 +21,7 @@
             {% for etiqueta in etiquetas %}
                 <tr>
                     <td>{{ etiqueta.id }}</td>
-                    <td>{{ etiqueta.nombre }}</td>
+                    <td><a href="{{ url_for('publicacion.publicaciones_por_etiqueta', etiqueta_id=etiqueta.id) }}">{{ etiqueta.nombre }}</a></td>
                     <td>{{ etiqueta.slug }}</td>
                     <td>
                         <a href="{{ url_for('etiqueta.ver_etiqueta', id=etiqueta.id) }}" class="btn btn-success btn-sm mb-1">

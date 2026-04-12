@@ -52,6 +52,12 @@
                   </li>
 
               </ul>
+              <!-- Botón de Cerrar Sesión a la derecha -->
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                      <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger">Cerrar Sesión</a>
+                  </li>
+              </ul>
           </div>
       </div>
     </nav>

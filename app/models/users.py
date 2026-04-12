@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 import qrcode
 from io import BytesIO
@@ -25,9 +26,15 @@ class User(db.Model, UserMixin):
         return {
             "idUser": self.idUser,
             "nameUser": self.nameUser,
-            "pass": self.passwordUser
+            "email": self.email
         }
     
+    def set_password(self, password):
+        self.passwordUser = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.passwordUser, password)
+
     def save(self):
         db.add(self)
         db.commit()

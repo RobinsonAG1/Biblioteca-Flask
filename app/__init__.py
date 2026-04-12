@@ -1,6 +1,6 @@
-from flask import Flask
+from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 import os
 
 db = SQLAlchemy()
@@ -37,6 +37,14 @@ def create_app():
     app.register_blueprint(perfil_route.bp)
     app.register_blueprint(publicacion_route.bp)
     app.register_blueprint(etiqueta_bp)
+
+    @app.after_request
+    def add_no_cache_headers(response):
+        if current_user.is_authenticated:
+            response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, private, max-age=0'
+            response.headers['Pragma'] = 'no-cache'
+            response.headers['Expires'] = '0'
+        return response
 
     @app.errorhandler(Exception)
     def handle_error(e):

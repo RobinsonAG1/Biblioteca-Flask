@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, send_file
+from flask_login import login_required
 from app.models.users import User
 from app.models.perfil import Perfil
 from app import db
@@ -9,11 +10,13 @@ import json
 bp = Blueprint('user', __name__, url_prefix='/User')
 
 @bp.route('/')
+@login_required
 def index():
     data = User.query.all()
     return render_template('users/index.html', data=data)
 
 @bp.route('/js')
+@login_required
 def indexjs():
     data = User.query.all()
         # Serializar los datos usando una comprensión de lista
@@ -23,12 +26,14 @@ def indexjs():
     return jsonify(result)
 
 @bp.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     if request.method == 'POST':
         nameUser = request.form['nameUser']
         passwordUser = request.form['passwordUser']
         email = request.form['email']
-        new_user = User(nameUser=nameUser, passwordUser=passwordUser, email=email)
+        new_user = User(nameUser=nameUser, email=email)
+        new_user.set_password(passwordUser)
         db.session.add(new_user)
         db.session.commit()
         
@@ -41,22 +46,27 @@ def add():
     return render_template('users/add.html')
 
 @bp.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
 def edit(id):
     user = User.query.get_or_404(id)
     if request.method == 'POST':
         user.nameUser = request.form['nameUser']
-        user.passwordUser = request.form['passwordUser']
+        new_password = request.form['passwordUser']
+        if new_password:
+            user.set_password(new_password)
         user.email = request.form['email']
         db.session.commit()        
         return redirect(url_for('user.index'))
 
     return render_template('users/edit.html', user=user)
 @bp.route('/detail/<int:id>')
+@login_required
 def detail(id):
     user = User.query.get_or_404(id)
     return render_template('users/detail.html', user=user)
 
 @bp.route('/delete/<int:id>')
+@login_required
 def delete(id):
     user = User.query.get_or_404(id)    
     db.session.delete(user)
@@ -64,6 +74,7 @@ def delete(id):
     return redirect(url_for('user.index'))
 
 @bp.route('/qr/<int:id>')
+@login_required
 def generate_qr(id):
     print("Entrando a la ruta de generación de QR para el usuario con ID:", id)
     user = User.query.get_or_404(id)
@@ -74,6 +85,7 @@ def generate_qr(id):
 
 
 @bp.route('/read_qr', methods=['POST'])
+@login_required
 def read_qr():
     from pyzbar.pyzbar import decode
     from PIL import Image

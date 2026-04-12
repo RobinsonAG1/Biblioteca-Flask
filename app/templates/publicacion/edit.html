@@ -19,19 +19,6 @@
     </div>
 
     <div class="form-group mb-3">
-        <label for="user_id" class="form-label">Usuario:</label>
-        <select id="user_id" name="user_id" required class="form-control">
-            <option value="">Seleccione un usuario</option>
-            {% for user in users %}
-                <option value="{{ user.idUser }}" {% if user.idUser == publicacion.user_id %}selected{% endif %}>{{ user.nameUser }}</option>
-            {% endfor %}
-        </select>
-        <div class="invalid-feedback">
-            Por favor, seleccione un usuario.
-        </div>
-    </div>
-
-    <div class="form-group mb-3">
         <label for="etiquetas" class="form-label">Etiquetas:</label>
         <select id="etiquetas" name="etiquetas" multiple class="form-control">
             {% for etiqueta in etiquetas %}
@@ -42,6 +29,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Actualizar Publicación</button>
+    <a href="{{ url_for('publicacion.index') }}" class="btn btn-secondary ms-2">Cancelar</a>
 </form>
 
 {% endblock %}

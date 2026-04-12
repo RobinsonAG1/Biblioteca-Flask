@@ -1,11 +1,22 @@
 {% extends "base.html" %}
-{% block titulo_pagina %}Lista de Publicaciones{% endblock %}
+{% block titulo_pagina %}
+    {% if etiqueta %}
+        Publicaciones con etiqueta: {{ etiqueta.nombre }}
+    {% else %}
+        Lista de Publicaciones
+    {% endif %}
+{% endblock %}
 {% block content %}
 
     <div class="text-start">
         <a href="{{ url_for('publicacion.add') }}" class="btn btn-primary btn-sm mb-1">
             <i class="bi bi-plus-circle"></i> Agregar Publicación
         </a>
+        {% if etiqueta %}
+        <a href="{{ url_for('publicacion.index') }}" class="btn btn-secondary btn-sm mb-1 ms-2">
+            <i class="bi bi-arrow-left"></i> Ver todas las publicaciones
+        </a>
+        {% endif %}
     </div>
 
     <table class="table table-striped">
@@ -29,7 +40,7 @@
                     <td>
                         {% if publicacion.etiquetas %}
                             {% for etiqueta in publicacion.etiquetas %}
-                                <span class="badge bg-light text-dark me-1">{{ etiqueta.nombre }}</span>
+                                <a href="{{ url_for('publicacion.publicaciones_por_etiqueta', etiqueta_id=etiqueta.id) }}" class="badge bg-light text-dark me-1">{{ etiqueta.nombre }}</a>
                             {% endfor %}
                         {% else %}
                             -
@@ -39,12 +50,14 @@
                         <a href="{{ url_for('publicacion.detail', id=publicacion.id) }}" class="btn btn-success btn-sm mb-1">
                             <i class="bi bi-eye"></i>
                         </a>
+                        {% if publicacion.user_id == current_user.idUser %}
                         <a href="{{ url_for('publicacion.edit', id=publicacion.id) }}" class="btn btn-primary btn-sm mb-1">
                             <i class="bi bi-pencil-square"></i>
                         </a>
                         <a href="{{ url_for('publicacion.delete', id=publicacion.id) }}" class="btn btn-danger btn-sm mb-1">
                             <i class="bi bi-trash"></i>
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

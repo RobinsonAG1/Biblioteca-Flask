@@ -10,7 +10,7 @@
             </tr>
             <tr>
                 <th>Nombre</th>
-                <td>{{ etiqueta.nombre }}</td>
+                <td><a href="{{ url_for('publicacion.publicaciones_por_etiqueta', etiqueta_id=etiqueta.id) }}">{{ etiqueta.nombre }}</a></td>
             </tr>
             <tr>
                 <th>Slug</th>

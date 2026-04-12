@@ -32,11 +32,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="{{ url_for('perfil.index') }}" class="btn btn-secondary">← Volver a Perfiles</a>
-                    {% if perfil.user_id == current_user.idUser %}
-                    <a href="{{ url_for('perfil.mi_perfil') }}" class="btn btn-primary ms-2">Mi Perfil</a>
-                    {% endif %}
+                <div class="card-footer d-flex justify-content-between">
+                    <div>
+                        <a href="{{ url_for('perfil.index') }}" class="btn btn-secondary">← Volver a Perfiles</a>
+                        {% if perfil.user_id == current_user.idUser %}
+                        <a href="{{ url_for('perfil.mi_perfil') }}" class="btn btn-primary ms-2">Mi Perfil</a>
+                        {% endif %}
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

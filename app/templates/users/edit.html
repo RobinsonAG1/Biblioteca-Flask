@@ -16,8 +16,8 @@
 
     <div class="form-group mb-3">
         <label for="passwordUser" class="form-label">Contraseña:</label>
-        <input type="password" id="passwordUser" name="passwordUser" value="{{ user.passwordUser }}" required
-            class="form-control">
+        <input type="password" id="passwordUser" name="passwordUser" placeholder="Dejar en blanco para no cambiar" class="form-control">
+        <small class="form-text text-muted">Complete solo si desea actualizar la contraseña.</small>
     </div>
 
     <button type="submit" class="btn btn-primary">Actualizar Usuario</button>

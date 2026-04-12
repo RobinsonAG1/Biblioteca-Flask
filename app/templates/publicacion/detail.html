@@ -24,7 +24,7 @@
                 <td>
                     {% if publicacion.etiquetas %}
                         {% for etiqueta in publicacion.etiquetas %}
-                            <span class="badge bg-secondary me-1">{{ etiqueta.nombre }}</span>
+                            <a href="{{ url_for('publicacion.publicaciones_por_etiqueta', etiqueta_id=etiqueta.id) }}" class="badge bg-secondary me-1">{{ etiqueta.nombre }}</a>
                         {% endfor %}
                     {% else %}
                         Sin etiquetas
@@ -33,12 +33,17 @@
             </tr>
         </table>
         <div class="d-flex justify-content-between">
-            <a href="{{ url_for('publicacion.edit', id=publicacion.id) }}" class="btn btn-primary btn-sm mb-1">
-                <i class="bi bi-pencil-square"></i> Editar
-            </a>
-            <a href="{{ url_for('publicacion.delete', id=publicacion.id) }}" class="btn btn-danger btn-sm mb-1">
-                <i class="bi bi-trash"></i> Eliminar
-            </a>
+            <a href="{{ url_for('publicacion.index') }}" class="btn btn-secondary">← Volver a Publicaciones</a>
+            {% if publicacion.user_id == current_user.idUser %}
+            <div>
+                <a href="{{ url_for('publicacion.edit', id=publicacion.id) }}" class="btn btn-primary btn-sm mb-1">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </a>
+                <a href="{{ url_for('publicacion.delete', id=publicacion.id) }}" class="btn btn-danger btn-sm mb-1 ms-2">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

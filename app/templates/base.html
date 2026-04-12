@@ -60,5 +60,42 @@
 
   <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.js') }}"></script>
 
+  {% if current_user.is_authenticated %}
+  <script>
+    // Prevenir navegación hacia atrás después del logout
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function(event) {
+        // Verificar si el usuario sigue autenticado
+        fetch('/check_auth', {method: 'GET'})
+            .then(response => {
+                if (response.status === 401 || !response.ok) {
+                    // Usuario no autenticado, redirigir al login
+                    window.location.href = '/';
+                } else {
+                    // Usuario autenticado, permitir navegación pero prevenir ir atrás
+                    window.history.pushState(null, null, window.location.href);
+                }
+            })
+            .catch(() => {
+                // Error en la verificación, asumir no autenticado
+                window.location.href = '/';
+            });
+    };
+
+    // Verificación periódica de autenticación
+    setInterval(function() {
+        fetch('/check_auth', {method: 'GET'})
+            .then(response => {
+                if (response.status === 401 || !response.ok) {
+                    window.location.href = '/';
+                }
+            })
+            .catch(() => {
+                window.location.href = '/';
+            });
+    }, 5000); // Verificar cada 5 segundos
+  </script>
+  {% endif %}
+
 </body>
 </html>
