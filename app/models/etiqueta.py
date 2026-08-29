@@ -1,11 +1,12 @@
 from app import db
 
-#Crear una tabla
+
 publicacion_etiqueta = db.Table(
     'publicacion_etiqueta',
     db.Column('publicacion_id', db.Integer, db.ForeignKey('publicaciones.id'), primary_key=True),
     db.Column('etiqueta_id', db.Integer, db.ForeignKey('etiquetas.id'), primary_key=True)
 )
+
 
 class Etiqueta(db.Model):
     __tablename__ = 'etiquetas'
