@@ -1,5 +1,6 @@
 from app import db
 
+#Crear una tabla
 publicacion_etiqueta = db.Table(
     'publicacion_etiqueta',
     db.Column('publicacion_id', db.Integer, db.ForeignKey('publicaciones.id'), primary_key=True),
